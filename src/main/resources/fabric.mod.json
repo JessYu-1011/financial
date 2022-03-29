@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "financial",
+  "version": "${version}",
+  "name": "Financial",
+  "description": "This mod is a financial system for minecraft",
+  "authors": [
+    "Jess"
+  ],
+  "contact": {
+    "website": "jessblog.org"
+  },
+  "license": "MIT",
+  "icon": "assets/financial/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "xyz.jessyu.fabric.financial.client.FinancialClient"
+    ],
+    "main": [
+      "xyz.jessyu.fabric.financial.Financial"
+    ]
+  },
+  "mixins": [
+    "financial.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "minecraft": "1.18.1"
+  }
+}
