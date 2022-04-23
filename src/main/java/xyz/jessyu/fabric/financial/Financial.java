@@ -22,6 +22,7 @@ public class Financial implements ModInitializer {
     public static final Coin COIN = new Coin(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
 
+
     @Override
     public void onInitialize() {
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "cashier"), CASHIER_BLOCK);
