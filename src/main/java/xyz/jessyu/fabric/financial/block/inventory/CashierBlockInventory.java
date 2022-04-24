@@ -111,8 +111,7 @@ public interface CashierBlockInventory extends Inventory {
     default void markDirty() {
         // 需要行为时，覆盖此方法。
     }
-
-    /**
+        /**
      * @return true 如果玩家可以使用物品栏，否则为 false
      */
     @Override
