@@ -16,6 +16,8 @@ import java.util.List;
 
 
 public class Coin extends Item {
+
+    private static String balance = "financial.balance";
     public Coin(Settings settings){
         super(settings);
     }
@@ -24,19 +26,37 @@ public class Coin extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand){
             if(!player.getStackInHand(hand).hasNbt()){
                 NbtCompound nbt = new NbtCompound();
-                nbt.putInt("financial.balance", 11);
+                nbt.putInt(balance, 0);
                 player.getStackInHand(hand).setNbt(nbt.copy());
             }
             return super.use(world, player, hand);
     }
 
 
+    /**
+     * Append the amount of balance to tooltip
+     * */
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (stack.hasNbt()) {
-            int currentBalance = stack.getNbt().getInt("financial.balance");
+            int currentBalance = stack.getNbt().getInt(balance);
             String currentB = String.valueOf(currentBalance);
             tooltip.add(new LiteralText(currentB));
+        }
+    }
+
+
+    /**
+     *  Modify the balance amount of the stack
+     *  This is a class level method, not need to be created a new instance when using.
+     * */
+    public static void modifyBalance(ItemStack stack, int offsetBalance){
+        if(stack.hasNbt()){
+            int currentBalance = stack.getNbt().getInt(balance);
+            currentBalance -= offsetBalance;
+            NbtCompound nbt = new NbtCompound();
+            nbt.putInt(balance, currentBalance);
+            stack.setNbt(nbt);
         }
     }
 

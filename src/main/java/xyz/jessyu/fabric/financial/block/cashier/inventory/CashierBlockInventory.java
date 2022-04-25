@@ -1,4 +1,4 @@
-package xyz.jessyu.fabric.financial.block.inventory;
+package xyz.jessyu.fabric.financial.block.cashier.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
@@ -7,29 +7,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
 public interface CashierBlockInventory extends Inventory {
-
     /**
-     * 从此物品栏中检索物品。
-     * 每次被调用时必须返回相同实例。
+     * Retrieves the item list of this inventory.
+     * Must return the same instance every time it's called.
      */
     DefaultedList<ItemStack> getItems();
 
     /**
-     * 从物品列表创建物品栏。
+     * Creates an inventory from the item list.
      */
     static CashierBlockInventory of(DefaultedList<ItemStack> items) {
         return () -> items;
     }
 
     /**
-     * 根据指定的尺寸创建新的物品栏。
+     * Creates a new inventory with the specified size.
      */
     static CashierBlockInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
     /**
-     * 返回物品栏的大小。
+     * Returns the inventory size.
      */
     @Override
     default int size() {
@@ -37,8 +36,8 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 检查物品栏是否为空。
-     * @return true，如果物品栏仅有一个空堆，否则为true。
+     * Checks if the inventory is empty.
+     * @return true if this inventory has only empty stacks, false otherwise.
      */
     @Override
     default boolean isEmpty() {
@@ -52,7 +51,7 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 检索槽位中的物品。
+     * Retrieves the item in the slot.
      */
     @Override
     default ItemStack getStack(int slot) {
@@ -60,9 +59,10 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 从物品栏槽位移除物品。
-     * @param slot  从该槽位移除。
-     * @param count 需要移除的物品个数。如果槽位中的物品少于需要的，则将其全部取出。
+     * Removes items from an inventory slot.
+     * @param slot  The slot to remove from.
+     * @param count How many items to remove. If there are less items in the slot than what are requested,
+     *              takes all items in that slot.
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
@@ -74,8 +74,8 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 从物品栏槽位移除所有物品。
-     * @param slot 从该槽位移除。
+     * Removes all items from an inventory slot.
+     * @param slot The slot to remove from.
      */
     @Override
     default ItemStack removeStack(int slot) {
@@ -83,9 +83,11 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 将物品栏槽位中的当前物品堆替换为提供的物品堆。
-     * @param slot  替换该槽位的物品堆。
-     * @param stack 替换后新的物品堆。如果堆对于此物品栏过大（{@link Inventory#getMaxCountPerStack()}），则压缩为物品栏的最大数量。
+     * Replaces the current stack in an inventory slot with the provided stack.
+     * @param slot  The inventory slot of which to replace the itemstack.
+     * @param stack The replacing itemstack. If the stack is too big for
+     *              this inventory ({@link Inventory#getMaxCountPerStack()}),
+     *              it gets resized to this inventory's maximum amount.
      */
     @Override
     default void setStack(int slot, ItemStack stack) {
@@ -96,7 +98,7 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 清除物品栏。
+     * Clears the inventory.
      */
     @Override
     default void clear() {
@@ -104,15 +106,17 @@ public interface CashierBlockInventory extends Inventory {
     }
 
     /**
-     * 将方块状态标记为脏。
-     * 更改物品栏之后必须调用，所以游戏正确地储存物品栏内容并提取邻近方块物品栏改变。
+     * Marks the state as dirty.
+     * Must be called after changes in the inventory, so that the game can properly save
+     * the inventory contents and notify neighboring blocks of inventory changes.
      */
     @Override
     default void markDirty() {
-        // 需要行为时，覆盖此方法。
+        // Override if you want behavior.
     }
-        /**
-     * @return true 如果玩家可以使用物品栏，否则为 false
+
+    /**
+     * @return true if the player can use the inventory, false otherwise.
      */
     @Override
     default boolean canPlayerUse(PlayerEntity player) {
