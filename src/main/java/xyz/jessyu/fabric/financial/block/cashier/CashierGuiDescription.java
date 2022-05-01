@@ -1,6 +1,7 @@
 package xyz.jessyu.fabric.financial.block.cashier;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.client.BackgroundPainter;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
@@ -20,19 +21,30 @@ public class CashierGuiDescription extends SyncedGuiDescription {
 
         WPlainPanel root = new WPlainPanel();
         setRootPanel(root);
-        root.setSize(300, 200);
+        root.setSize(400, 200);
         root.setInsets(Insets.ROOT_PANEL);
 
         WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
         cardSlot.setFilter(stack -> stack.getItem() == Financial.COIN);
-        root.add(cardSlot, 2, 40);
+        root.add(cardSlot, 50, 40);
 
-        WBox box = new WBox(Axis.HORIZONTAL);
+        WBox box = new WBox(Axis.VERTICAL);
         for(int i = 0 ; i < 10 ; i++){
-            WButton btn = new WButton();
-            btn.setSize(3, 8);
+            WPlainPanel panel = new WPlainPanel();
+            panel.setBackgroundPainter(BackgroundPainter.VANILLA);
+            panel.setSize(200, 50);
+
+            WButton innerBtn = new WButton();
+            innerBtn.setSize(30, 20);
+            panel.add(innerBtn, 2, 2);
+
+            WItemSlot innerSlot =  WItemSlot.of(blockInventory, i+3);
+            panel.add(innerSlot, 170, 2);
+            box.add(panel);
         }
 
+        WScrollPanel sp = new WScrollPanel(box);
+        root.add(sp, 170, 15, 200, 180);
 
         root.add(this.createPlayerInventoryPanel(), 0, 100);
         root.validate(this);
