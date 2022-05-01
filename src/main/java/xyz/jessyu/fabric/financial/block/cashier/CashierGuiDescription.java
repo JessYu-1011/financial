@@ -10,7 +10,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import xyz.jessyu.fabric.financial.Financial;
 
 public class CashierGuiDescription extends SyncedGuiDescription {
-    private static int INVENTORY_SIZE = 1;
+    private static int INVENTORY_SIZE = 100;
 
     public CashierGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
         super(Financial.SCREEN_HANDLER_TYPE,
@@ -32,19 +32,19 @@ public class CashierGuiDescription extends SyncedGuiDescription {
         for(int i = 0 ; i < 10 ; i++){
             WPlainPanel panel = new WPlainPanel();
             panel.setBackgroundPainter(BackgroundPainter.VANILLA);
-            panel.setSize(200, 50);
+            panel.setInsets(Insets.ROOT_PANEL);
+            panel.setSize(230, 60);
 
             WButton innerBtn = new WButton();
-            innerBtn.setSize(30, 20);
-            panel.add(innerBtn, 2, 2);
+            panel.add(innerBtn, 1, 1, 30, 10);
 
-            WItemSlot innerSlot =  WItemSlot.of(blockInventory, i+3);
-            panel.add(innerSlot, 170, 2);
+            WItemSlot innerSlot =  WItemSlot.of(blockInventory, i+50);
+            panel.add(innerSlot, 170, 0);
             box.add(panel);
         }
 
         WScrollPanel sp = new WScrollPanel(box);
-        root.add(sp, 170, 15, 200, 180);
+        root.add(sp, 170, 15, 230, 180);
 
         root.add(this.createPlayerInventoryPanel(), 0, 100);
         root.validate(this);
