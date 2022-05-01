@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 import xyz.jessyu.fabric.financial.Financial;
 import xyz.jessyu.fabric.financial.block.cashier.inventory.CashierBlockInventory;
 
@@ -30,17 +30,10 @@ public class CashierBlockEntity extends BlockEntity implements CashierBlockInven
         return items;
     }
 
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new CashierScreenHandler(syncId, playerInventory, this);
-    }
 
-    @Override
-    public Text getDisplayName(){
-        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
-    }
-
+    /**
+     * Read and write Inventories tag
+     * */
     @Override
     public void readNbt(NbtCompound nbt){
         super.readNbt(nbt);
@@ -53,5 +46,14 @@ public class CashierBlockEntity extends BlockEntity implements CashierBlockInven
         Inventories.writeNbt(nbt, this.items);
     }
 
+    @Override
+    public Text getDisplayName() {
+        // Using the block name as the screen title
+        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+    }
 
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
+        return new CashierGuiDescription(syncId, inventory, ScreenHandlerContext.create(world, pos));
+    }
 }

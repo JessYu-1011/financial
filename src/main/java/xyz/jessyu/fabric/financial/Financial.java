@@ -10,12 +10,14 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
-import xyz.jessyu.fabric.financial.block.cashier.CashierScreenHandler;
+import xyz.jessyu.fabric.financial.block.cashier.CashierBlockScreen;
+import xyz.jessyu.fabric.financial.block.cashier.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
 
 
@@ -25,8 +27,7 @@ public class Financial implements ModInitializer {
     public static BlockItem CASHIER_ITEM;
     public static Item COIN; // = new Coin(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
-    public static ScreenHandlerType<CashierScreenHandler> CASHIER_SCREEN_HANDLER =
-            ScreenHandlerRegistry.registerSimple(new Identifier(MOD_ID, "cashier_block"), CashierScreenHandler::new);
+    public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
 
     @Override
     public void onInitialize() {
@@ -49,6 +50,12 @@ public class Financial implements ModInitializer {
                 Registry.BLOCK_ENTITY_TYPE,
                 new Identifier(MOD_ID, "cashier_block_entity"),
                 FabricBlockEntityTypeBuilder.create(CashierBlockEntity::new, CASHIER_BLOCK).build(null)
+        );
+
+        SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+                new Identifier(MOD_ID, "screen_handler_type"),
+                (syncId, inventory) -> new CashierGuiDescription(
+                        syncId, inventory, ScreenHandlerContext.EMPTY)
         );
     }
 }

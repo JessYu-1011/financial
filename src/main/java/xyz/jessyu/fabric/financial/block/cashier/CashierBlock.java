@@ -3,11 +3,8 @@ package xyz.jessyu.fabric.financial.block.cashier;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -17,13 +14,13 @@ import net.minecraft.world.World;
 
 public class CashierBlock extends BlockWithEntity {
     public CashierBlock(Settings settings){
-        super(settings);
+        super(settings.of(Material.METAL).nonOpaque());
+    }
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 1.0f, 1.0f);
     }
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context){
-        return VoxelShapes.cuboid(0F, 0F, 0F, 1F, 1F, 1F);
-    }
 
     /**
      * Create teh block's entity while block created
@@ -33,43 +30,13 @@ public class CashierBlock extends BlockWithEntity {
         return new CashierBlockEntity(pos, state);
     }
 
-    @Override
-    public BlockRenderType getRenderType(BlockState state){
-        return BlockRenderType.MODEL;
-    }
-
+    /**
+     * If right-click the block
+     * */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit){
-        if(!world.isClient){
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-
-            if(screenHandlerFactory != null){
-                player.openHandledScreen(screenHandlerFactory);
-            }
-        }
+        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved){
-        if(state.getBlock() != newState.getBlock()){
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if(blockEntity instanceof CashierBlockEntity){
-                ItemScatterer.spawn(world, pos, (CashierBlockEntity)blockEntity);
-                world.updateComparators(pos, this);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
-    }
-
-    @Override
-    public boolean hasComparatorOutput(BlockState state){
-        return true;
-    }
-
-    @Override
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos){
-        return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
 
 
