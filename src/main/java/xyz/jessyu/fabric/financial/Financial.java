@@ -16,8 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
-import xyz.jessyu.fabric.financial.block.cashier.CashierBlockScreen;
-import xyz.jessyu.fabric.financial.block.cashier.CashierGuiDescription;
+import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
 
 

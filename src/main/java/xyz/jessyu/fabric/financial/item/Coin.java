@@ -28,6 +28,9 @@ public class Coin extends Item {
                 NbtCompound nbt = new NbtCompound();
                 nbt.putInt(balance, 0);
                 player.getStackInHand(hand).setNbt(nbt.copy());
+            } else {
+                // this part is for testing purpose
+                modifyBalance(player.getStackInHand(hand), -10);
             }
             return super.use(world, player, hand);
     }
@@ -60,4 +63,7 @@ public class Coin extends Item {
         }
     }
 
+    public static int getBalance(ItemStack stack){
+        return stack.getNbt().getInt(balance);
+    }
 }

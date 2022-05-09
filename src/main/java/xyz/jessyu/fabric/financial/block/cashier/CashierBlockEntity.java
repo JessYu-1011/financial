@@ -16,10 +16,11 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import xyz.jessyu.fabric.financial.Financial;
 import xyz.jessyu.fabric.financial.block.cashier.inventory.CashierBlockInventory;
+import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 
 public class CashierBlockEntity extends BlockEntity implements CashierBlockInventory, NamedScreenHandlerFactory {
 
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(50, ItemStack.EMPTY);
 
     public CashierBlockEntity(BlockPos pos, BlockState state){
         super(Financial.CASHIER_BLOCK_ENTITY, pos, state);
