@@ -1,10 +1,14 @@
 package xyz.jessyu.fabric.financial.block.cashier.inventory;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.MessageType;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.collection.DefaultedList;
+import xyz.jessyu.fabric.financial.item.Coin;
 
 public interface CashierBlockInventory extends Inventory {
     /**
@@ -66,9 +70,32 @@ public interface CashierBlockInventory extends Inventory {
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
-        ItemStack result = Inventories.splitStack(getItems(), slot, count);
-        if (!result.isEmpty()) {
-            markDirty();
+        ItemStack result = null;
+        /**
+         * If we want take out the itemstack, the balance will decrease
+         * */
+        if(slot >= 2 && slot <= 31){
+            int balance = Coin.getBalance(getStack(0));
+            if(balance > 0 ){
+                result = Inventories.splitStack(getItems(), slot, count);
+                Coin.modifyBalance(getStack(0), 2);
+                if (!result.isEmpty()) {
+                    markDirty();
+                }
+            } else {
+                /**
+                 * If the player's balance is inefficient, then send the message
+                 * */
+                MinecraftClient mc = MinecraftClient.getInstance();
+                mc.inGameHud.addChatMessage(
+                        MessageType.CHAT,
+                        new LiteralText("The balance is ineffiecient"),
+                        mc.player.getUuid());
+                return result;
+            }
+        } else {
+            result = Inventories.splitStack(getItems(), slot, count);
+            return result;
         }
         return result;
     }

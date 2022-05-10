@@ -31,6 +31,10 @@ public class CashierBlock extends BlockWithEntity {
         return ActionResult.SUCCESS;
     }
 
+
+    /**
+     * BlockWithEntity default set this to invisible, so we need to set this to visible
+     * */
     @Override
     public BlockRenderType getRenderType(BlockState state){
         return BlockRenderType.MODEL;

@@ -2,14 +2,11 @@ package xyz.jessyu.fabric.financial.block.cashier.libgui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
-import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import xyz.jessyu.fabric.financial.Financial;
-import xyz.jessyu.fabric.financial.item.Coin;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -33,6 +30,9 @@ public class CashierGuiDescription extends SyncedGuiDescription {
         root.setSize(20*18, 12*18);
         root.setInsets(Insets.ROOT_PANEL);
 
+        /**
+         * The slot for putting card
+         * */
         WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
         cardSlot.setFilter(stack -> stack.getItem() == Financial.COIN);
         root.add(cardSlot, 50, 40);
@@ -58,13 +58,12 @@ public class CashierGuiDescription extends SyncedGuiDescription {
             for(int j = 0; j < 10; j++){
                 WItemSlot innerSlot = WItemSlot.of(blockInventory, slotIndex);
                 innerSlot.setInsertingAllowed(false);
-                innerSlot.addChangeListener(
-                        (slot, inventory, index, stack) -> {
-                            if(!inventory.getStack(index).isEmpty() && (inventory.getStack(index).hasNbt()) && (Coin.getBalance(stack) > 0)){
-                                Coin.modifyBalance(stack, 1);
-                            }
-                        }
-                );
+                /**
+                 * When the player want to take out the item from the slot,
+                 * the balance of the card will decrease
+                 * */
+                // Now, haven't had the thoughts about how to set to prevent not enough balance
+                // Maybe we can adjust the inventory class
                 rightPanel.add(innerSlot, slotX, slotY);
                 slotY += 18;
                 slotIndex ++;
@@ -73,6 +72,11 @@ public class CashierGuiDescription extends SyncedGuiDescription {
         }
         root.add(rightPanel, 14*18, 0);
 
+
+        /**
+         * When the itemstack put to this slot,
+         * the itemstack will move to the goods inventories
+         * */
         AtomicInteger outerIndex = new AtomicInteger(2);
         WItemSlot putSlot = WItemSlot.of(blockInventory, 1);
         putSlot.setFilter(stack -> stack.getItem() != Financial.COIN);
