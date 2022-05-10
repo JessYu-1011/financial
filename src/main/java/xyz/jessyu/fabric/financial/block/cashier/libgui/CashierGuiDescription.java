@@ -20,7 +20,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
                 getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context)
         );
 
-        /*
+        /**
          * Root Panel
          * Contains left-hand side => PlayerInventory and Card itemSlot
          * Right-hand side => list of the goods for selling
@@ -61,9 +61,8 @@ public class CashierGuiDescription extends SyncedGuiDescription {
                 /**
                  * When the player want to take out the item from the slot,
                  * the balance of the card will decrease
+                 * This part has been set in Inventory class
                  * */
-                // Now, haven't had the thoughts about how to set to prevent not enough balance
-                // Maybe we can adjust the inventory class
                 rightPanel.add(innerSlot, slotX, slotY);
                 slotY += 18;
                 slotIndex ++;
