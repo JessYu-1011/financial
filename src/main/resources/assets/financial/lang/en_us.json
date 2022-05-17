@@ -1,5 +1,8 @@
 {
   "block.financial.cashier": "Cashier",
   "item.financial.coin": "Coin",
-  "item.financial.kitchen_knife": "Kitchen Knife"
+  "item.financial.kitchen_knife": "Kitchen Knife",
+  "item.financial.cod_sashimi": "Cod Sashimi",
+  "item.financial.puffer_fish_sashimi": "Puffer Fish Sashimi",
+  "item.financial.salmon_sashimi": "Salmon Sashimi"
 }
