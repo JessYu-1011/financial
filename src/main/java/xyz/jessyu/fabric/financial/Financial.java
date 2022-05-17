@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ToolItem;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,8 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
+import xyz.jessyu.fabric.financial.item.tools.KitchenKnife;
+import xyz.jessyu.fabric.financial.item.tools.KitchenKnifeMaterial;
 
 
 public class Financial implements ModInitializer {
@@ -27,6 +30,7 @@ public class Financial implements ModInitializer {
     public static Item COIN; // = new Coin(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
+    public static ToolItem KITCHEN_KNIFE;
 
     @Override
     public void onInitialize() {
@@ -42,7 +46,9 @@ public class Financial implements ModInitializer {
         COIN = Registry.register(
                 Registry.ITEM,
                 new Identifier(MOD_ID, "coin"),
-                new Coin((new FabricItemSettings().group(ItemGroup.MISC).maxCount(1)))
+                new Coin(
+                        (new FabricItemSettings().group(ItemGroup.MISC).maxCount(1))
+                )
         );
 
         CASHIER_BLOCK_ENTITY = Registry.register(
@@ -55,6 +61,17 @@ public class Financial implements ModInitializer {
                 new Identifier(MOD_ID, "screen_handler_type"),
                 (syncId, inventory) -> new CashierGuiDescription(
                         syncId, inventory, ScreenHandlerContext.EMPTY)
+        );
+
+        KITCHEN_KNIFE = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "kitchen_knife"),
+                new KitchenKnife(
+                        KitchenKnifeMaterial.INSTANCE,
+                        3,
+                        0.8F,
+                        new Item.Settings().group(ItemGroup.MISC)
+                )
         );
     }
 }
