@@ -7,10 +7,9 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ToolItem;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.*;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -19,6 +18,10 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
+import xyz.jessyu.fabric.financial.item.foods.sashimis.CodSashimi;
+import xyz.jessyu.fabric.financial.item.foods.sashimis.PufferFishSashimi;
+import xyz.jessyu.fabric.financial.item.foods.sashimis.SalmonSashimi;
+import xyz.jessyu.fabric.financial.item.foods.sashimis.Sashimi;
 import xyz.jessyu.fabric.financial.item.tools.KitchenKnife;
 import xyz.jessyu.fabric.financial.item.tools.KitchenKnifeMaterial;
 
@@ -31,6 +34,7 @@ public class Financial implements ModInitializer {
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
     public static ToolItem KITCHEN_KNIFE;
+    public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI ;
 
     @Override
     public void onInitialize() {
@@ -73,5 +77,59 @@ public class Financial implements ModInitializer {
                         new Item.Settings().group(ItemGroup.TOOLS)
                 )
         );
+
+        COD_SASHIMI = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "cod_sashimi"),
+                new CodSashimi(new FabricItemSettings().
+                        food(new FoodComponent.Builder().
+                                hunger(4).
+                                saturationModifier(6F).
+                                alwaysEdible().
+                                /**
+                                 * Every 20 ticks are 1 second
+                                 * */
+                                statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20*10), 0.01F).
+                                statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*10), 1).
+                                build()
+                        ).
+                        group(ItemGroup.FOOD)
+                )
+        );
+
+        PUFFER_FISH_SASHIMI = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "puffer_fish_sashimi"),
+                new PufferFishSashimi(new FabricItemSettings().
+                        food(new FoodComponent.Builder().
+                                hunger(2).
+                                saturationModifier(6F).
+                                alwaysEdible().
+                                statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20*10), 0.01F).
+                                statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20*10), 0.1F).
+                                statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 20*60), 1).
+                                statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20*60), 1).
+                                build()
+                        ).
+                        group(ItemGroup.FOOD)
+                )
+        );
+
+        SALMON_SASHIMI = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "salmon_sashimi"),
+                new SalmonSashimi(new FabricItemSettings().
+                        food(new FoodComponent.Builder().
+                                hunger(4).
+                                saturationModifier(6F).
+                                alwaysEdible().
+                                statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20*10), 0.01F).
+                                statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*10), 1).
+                                build()
+                        )
+                        .group(ItemGroup.FOOD)
+                )
+        );
+
     }
 }
