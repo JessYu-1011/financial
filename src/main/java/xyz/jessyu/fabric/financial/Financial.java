@@ -70,7 +70,7 @@ public class Financial implements ModInitializer {
                         KitchenKnifeMaterial.INSTANCE,
                         3,
                         0.8F,
-                        new Item.Settings().group(ItemGroup.MISC)
+                        new Item.Settings().group(ItemGroup.TOOLS)
                 )
         );
     }

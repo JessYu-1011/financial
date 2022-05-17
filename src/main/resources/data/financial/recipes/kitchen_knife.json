@@ -1,19 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " i",
-    "/ "
+    " #",
+    "i "
   ],
   "key": {
     "i": {
-      "item": "minecraft:iron_ingot"
-    },
-    "/": {
       "item": "minecraft:stick"
+    },
+    "#": {
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "financial.kitchen_knife",
-    "count": 1
+    "item": "financial:kitchen_knife"
   }
 }
