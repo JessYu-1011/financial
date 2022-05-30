@@ -17,7 +17,7 @@ import net.minecraft.util.registry.Registry;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
-import xyz.jessyu.fabric.financial.item.Coin;
+import xyz.jessyu.fabric.financial.item.Card;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
 import xyz.jessyu.fabric.financial.item.foods.jams.AppleJam;
@@ -59,8 +59,8 @@ public class Financial implements ModInitializer {
 
         COIN = Registry.register(
                 Registry.ITEM,
-                new Identifier(MOD_ID, "coin"),
-                new Coin(
+                new Identifier(MOD_ID, "card"),
+                new Card(
                         (new FabricItemSettings().group(ItemGroup.MISC).maxCount(1))
                 )
         );

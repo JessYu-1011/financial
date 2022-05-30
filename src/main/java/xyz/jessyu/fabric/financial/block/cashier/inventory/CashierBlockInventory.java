@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.collection.DefaultedList;
-import xyz.jessyu.fabric.financial.item.Coin;
+import xyz.jessyu.fabric.financial.item.Card;
 
 public interface CashierBlockInventory extends Inventory {
     /**
@@ -75,10 +75,10 @@ public interface CashierBlockInventory extends Inventory {
          * If we want take out the itemstack, the balance will decrease
          * */
         if(slot >= 2 && slot <= 31){
-            int balance = Coin.getBalance(getStack(0));
+            int balance = Card.getBalance(getStack(0));
             if(balance > 0 ){
                 result = Inventories.splitStack(getItems(), slot, count);
-                Coin.modifyBalance(getStack(0), 2);
+                Card.modifyBalance(getStack(0), 2);
                 if (!result.isEmpty()) {
                     markDirty();
                 }

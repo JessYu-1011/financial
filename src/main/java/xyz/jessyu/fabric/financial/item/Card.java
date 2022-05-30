@@ -15,10 +15,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class Coin extends Item {
+public class Card extends Item {
 
     private static String balance = "financial.balance";
-    public Coin(Settings settings){
+    public Card(Settings settings){
         super(settings);
     }
 
