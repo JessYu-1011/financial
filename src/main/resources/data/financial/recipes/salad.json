@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "pattern": [
+    "bma",
+    "spc",
+    " o "
+  ],
+  "key": {
+    "b": {
+      "item": "minecraft:beetroot"
+    },
+    "m": {
+      "item": "minecraft:melon_slice"
+    },
+    "a": {
+      "item": "minecraft:apple"
+    },
+    "s": {
+      "item": "minecraft:sweet_berries"
+    },
+    "p": {
+      "item": "minecraft:potato"
+    },
+    "c": {
+      "item": "minecraft:carrot"
+    },
+    "o": {
+      "item": "minecraft:bowl"
+    }
+  }
+}

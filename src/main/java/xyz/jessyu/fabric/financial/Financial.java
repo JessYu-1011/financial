@@ -19,6 +19,7 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
+import xyz.jessyu.fabric.financial.item.foods.Salad;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.CodSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.PufferFishSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.SalmonSashimi;
@@ -37,6 +38,7 @@ public class Financial implements ModInitializer {
     public static ToolItem KITCHEN_KNIFE;
     public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
     public static Kebab KEBAB;
+    public static Salad SALAD;
 
     @Override
     public void onInitialize() {
@@ -141,12 +143,25 @@ public class Financial implements ModInitializer {
                                 hunger(16).
                                 saturationModifier(6F).
                                 alwaysEdible().
-                                statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20*20), 1).
-                                statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20*60), 1)
+                                statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20*20), 1)
                                 .build()
                         )
                         .group(ItemGroup.FOOD)
                 )
+        );
+
+        SALAD = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "salad"),
+                new Salad(new FabricItemSettings().
+                            food(new FoodComponent.Builder().
+                                    hunger(20).
+                                    statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*30), 1).
+                                    statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20*30), 1)
+                                    .build()
+                            )
+                        .group(ItemGroup.FOOD)
+                        )
         );
 
     }
