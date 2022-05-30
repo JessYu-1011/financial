@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "financial:watermelon_jam"
+    },
+    {
+      "item": "financial:toast"
+
+    }
+  ],
+  "result": {
+    "item": "financial:watermelon_jam_toast",
+    "count": 8
+  }
+}

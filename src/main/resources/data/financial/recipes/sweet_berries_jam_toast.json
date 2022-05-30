@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "financial:sweet_berries_jam"
+    },
+    {
+      "item": "financial:toast"
+
+    }
+  ],
+  "result": {
+    "item": "financial:sweet_berries_jam",
+    "count": 8
+  }
+}
