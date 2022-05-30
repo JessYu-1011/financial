@@ -20,6 +20,9 @@ import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
+import xyz.jessyu.fabric.financial.item.foods.jams.AppleJam;
+import xyz.jessyu.fabric.financial.item.foods.jams.SweetBerriesJam;
+import xyz.jessyu.fabric.financial.item.foods.jams.WatermelonJam;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.CodSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.PufferFishSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.SalmonSashimi;
@@ -39,6 +42,9 @@ public class Financial implements ModInitializer {
     public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
     public static Kebab KEBAB;
     public static Salad SALAD;
+    public static AppleJam APPLE_JAM;
+    public static SweetBerriesJam SWEET_BERRIES_JAM;
+    public static WatermelonJam WATERMELON_JAM;
 
     @Override
     public void onInitialize() {
@@ -162,6 +168,39 @@ public class Financial implements ModInitializer {
                             )
                         .group(ItemGroup.FOOD)
                         )
+        );
+
+        APPLE_JAM = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "apple_jam"),
+                new AppleJam(new FabricItemSettings().
+                            food(new FoodComponent.Builder()
+                                    .build()
+                            )
+                        .group(ItemGroup.FOOD)
+                        )
+        );
+
+        SWEET_BERRIES_JAM = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "sweet_berries_jam"),
+                new SweetBerriesJam(new FabricItemSettings().
+                            food(new FoodComponent.Builder()
+                                    .build()
+                            )
+                        .group(ItemGroup.FOOD)
+                        )
+        );
+
+        WATERMELON_JAM =  Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "watermelon_jam"),
+                new WatermelonJam(new FabricItemSettings().
+                        food(new FoodComponent.Builder()
+                                .build()
+                        )
+                        .group(ItemGroup.FOOD)
+                )
         );
 
     }
