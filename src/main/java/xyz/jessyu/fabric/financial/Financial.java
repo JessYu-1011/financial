@@ -20,6 +20,7 @@ import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Card;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
+import xyz.jessyu.fabric.financial.item.foods.Toast;
 import xyz.jessyu.fabric.financial.item.foods.jams.AppleJam;
 import xyz.jessyu.fabric.financial.item.foods.jams.SweetBerriesJam;
 import xyz.jessyu.fabric.financial.item.foods.jams.WatermelonJam;
@@ -45,6 +46,7 @@ public class Financial implements ModInitializer {
     public static AppleJam APPLE_JAM;
     public static SweetBerriesJam SWEET_BERRIES_JAM;
     public static WatermelonJam WATERMELON_JAM;
+    public static Toast TOAST;
 
     @Override
     public void onInitialize() {
@@ -203,5 +205,16 @@ public class Financial implements ModInitializer {
                 )
         );
 
+        TOAST = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "toast"),
+                new Toast(new FabricItemSettings().
+                            food(new FoodComponent.Builder().
+                                    hunger(2)
+                                    .build()
+                            )
+                        .group(ItemGroup.FOOD)
+                        )
+        );
     }
 }
