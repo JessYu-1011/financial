@@ -18,7 +18,8 @@ public class Breakfast extends Item {
                         statusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20*10), 1).
                         statusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 20*60), 1)
                         .build()
-                ).group(ItemGroup.FOOD)
+                )
+                .group(ItemGroup.FOOD)
         );
     }
 }

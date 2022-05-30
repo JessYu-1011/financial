@@ -16,6 +16,7 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Card;
+import xyz.jessyu.fabric.financial.item.Plate;
 import xyz.jessyu.fabric.financial.item.foods.Breakfast;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
@@ -44,6 +45,7 @@ public class Financial implements ModInitializer {
     public static Kebab KEBAB;
     public static Salad SALAD;
     public static Breakfast BREAKFAST;
+    public static Plate PLATE;
     public static Jam APPLE_JAM, SWEET_BERRIES_JAM, WATERMELON_JAM;
     public static Toast TOAST, APPLE_JAM_TOAST, SWEET_BERRIES_JAM_TOAST, WATERMELON_JAM_TOAST;
 
@@ -131,6 +133,10 @@ public class Financial implements ModInitializer {
 
         BREAKFAST = Registry.register(
                 Registry.ITEM, new Identifier(MOD_ID, "breakfast"), new Breakfast(new FabricItemSettings())
+        );
+
+        PLATE = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "plate"), new Plate(new FabricItemSettings())
         );
     }
 }

@@ -6,7 +6,9 @@
     },
     {
       "item": "minecraft:cod"
-
+    },
+    {
+      "item": "financial:plate"
     }
   ],
   "result": {
