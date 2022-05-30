@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  a",
+    " b ",
+    "i  "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:stick"
+    },
+    "a": {
+      "item": "minecraft:cooked_beef"
+    },
+    "b": {
+      "item": "minecraft:cooked_porkchop"
+    }
+  }
+}

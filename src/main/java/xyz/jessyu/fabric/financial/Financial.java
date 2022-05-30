@@ -18,6 +18,7 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Coin;
+import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.CodSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.PufferFishSashimi;
 import xyz.jessyu.fabric.financial.item.foods.sashimis.SalmonSashimi;
@@ -34,7 +35,8 @@ public class Financial implements ModInitializer {
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
     public static ToolItem KITCHEN_KNIFE;
-    public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI ;
+    public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
+    public static Kebab KEBAB;
 
     @Override
     public void onInitialize() {
@@ -126,6 +128,22 @@ public class Financial implements ModInitializer {
                                 statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20*10), 0.01F).
                                 statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*10), 1).
                                 build()
+                        )
+                        .group(ItemGroup.FOOD)
+                )
+        );
+
+        KEBAB = Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, "kebab"),
+                new Kebab(new FabricItemSettings().
+                        food(new FoodComponent.Builder().
+                                hunger(16).
+                                saturationModifier(6F).
+                                alwaysEdible().
+                                statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20*20), 1).
+                                statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20*60), 1)
+                                .build()
                         )
                         .group(ItemGroup.FOOD)
                 )
