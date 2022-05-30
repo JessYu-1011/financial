@@ -34,7 +34,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * The slot for putting card
          * */
         WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
-        cardSlot.setFilter(stack -> stack.getItem() == Financial.COIN);
+        cardSlot.setFilter(stack -> stack.getItem() == Financial.CARD);
         root.add(cardSlot, 50, 40);
 
 
@@ -78,7 +78,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * */
         AtomicInteger outerIndex = new AtomicInteger(2);
         WItemSlot putSlot = WItemSlot.of(blockInventory, 1);
-        putSlot.setFilter(stack -> stack.getItem() != Financial.COIN);
+        putSlot.setFilter(stack -> stack.getItem() != Financial.CARD);
         putSlot.addChangeListener(
                 (slot, inventory, index, stack) -> {
                     if(!stack.isEmpty()){

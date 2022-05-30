@@ -16,6 +16,7 @@ import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Card;
+import xyz.jessyu.fabric.financial.item.foods.Breakfast;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
 import xyz.jessyu.fabric.financial.item.foods.jams.Jam;
@@ -33,15 +34,16 @@ import xyz.jessyu.fabric.financial.item.tools.KitchenKnifeMaterial;
 
 public class Financial implements ModInitializer {
     public static final String MOD_ID = "financial";
-    public static Block CASHIER_BLOCK; // = new CashierBlock(Block.Settings.of(Material.STONE).requiresTool());
+    public static Block CASHIER_BLOCK;
     public static BlockItem CASHIER_ITEM;
-    public static Item COIN; // = new Coin(new FabricItemSettings().group(ItemGroup.MISC).maxCount(64));
+    public static Card CARD;
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
     public static ToolItem KITCHEN_KNIFE;
     public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
     public static Kebab KEBAB;
     public static Salad SALAD;
+    public static Breakfast BREAKFAST;
     public static Jam APPLE_JAM, SWEET_BERRIES_JAM, WATERMELON_JAM;
     public static Toast TOAST, APPLE_JAM_TOAST, SWEET_BERRIES_JAM_TOAST, WATERMELON_JAM_TOAST;
 
@@ -56,7 +58,7 @@ public class Financial implements ModInitializer {
         CASHIER_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "cashier"),
                 new BlockItem(CASHIER_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
 
-        COIN = Registry.register(
+        CARD = Registry.register(
                 Registry.ITEM, new Identifier(MOD_ID, "card"), new Card(new FabricItemSettings())
         );
 
@@ -125,6 +127,10 @@ public class Financial implements ModInitializer {
 
         WATERMELON_JAM_TOAST = Registry.register(
                 Registry.ITEM, new Identifier(MOD_ID, "watermelon_jam_toast"), new WatermelonJamToast(new FabricItemSettings())
+        );
+
+        BREAKFAST = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "breakfast"), new Breakfast(new FabricItemSettings())
         );
     }
 }
