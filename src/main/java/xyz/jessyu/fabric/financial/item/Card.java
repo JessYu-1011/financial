@@ -3,6 +3,7 @@ package xyz.jessyu.fabric.financial.item;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
@@ -19,7 +20,7 @@ public class Card extends Item {
 
     private static String balance = "financial.balance";
     public Card(Settings settings){
-        super(settings);
+        super(settings.group(ItemGroup.MISC).maxCount(1));
     }
 
     @Override

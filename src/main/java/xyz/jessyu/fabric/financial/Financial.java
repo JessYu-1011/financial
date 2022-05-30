@@ -7,8 +7,6 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -20,7 +18,8 @@ import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.Card;
 import xyz.jessyu.fabric.financial.item.foods.Kebab;
 import xyz.jessyu.fabric.financial.item.foods.Salad;
-import xyz.jessyu.fabric.financial.item.foods.Toast;
+import xyz.jessyu.fabric.financial.item.foods.jams.Jam;
+import xyz.jessyu.fabric.financial.item.foods.toasts.*;
 import xyz.jessyu.fabric.financial.item.foods.jams.AppleJam;
 import xyz.jessyu.fabric.financial.item.foods.jams.SweetBerriesJam;
 import xyz.jessyu.fabric.financial.item.foods.jams.WatermelonJam;
@@ -43,10 +42,8 @@ public class Financial implements ModInitializer {
     public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
     public static Kebab KEBAB;
     public static Salad SALAD;
-    public static AppleJam APPLE_JAM;
-    public static SweetBerriesJam SWEET_BERRIES_JAM;
-    public static WatermelonJam WATERMELON_JAM;
-    public static Toast TOAST;
+    public static Jam APPLE_JAM, SWEET_BERRIES_JAM, WATERMELON_JAM;
+    public static Toast TOAST, APPLE_JAM_TOAST, SWEET_BERRIES_JAM_TOAST, WATERMELON_JAM_TOAST;
 
     @Override
     public void onInitialize() {
@@ -60,11 +57,7 @@ public class Financial implements ModInitializer {
                 new BlockItem(CASHIER_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
 
         COIN = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "card"),
-                new Card(
-                        (new FabricItemSettings().group(ItemGroup.MISC).maxCount(1))
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "card"), new Card(new FabricItemSettings())
         );
 
         CASHIER_BLOCK_ENTITY = Registry.register(
@@ -80,141 +73,58 @@ public class Financial implements ModInitializer {
         );
 
         KITCHEN_KNIFE = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "kitchen_knife"),
-                new KitchenKnife(
-                        KitchenKnifeMaterial.INSTANCE,
-                        3,
-                        0.8F,
-                        new Item.Settings().group(ItemGroup.TOOLS)
+                Registry.ITEM, new Identifier(MOD_ID, "kitchen_knife"),
+                new KitchenKnife(KitchenKnifeMaterial.INSTANCE, 3, 0.8F,
+                        new FabricItemSettings().group(ItemGroup.TOOLS)
                 )
         );
 
         COD_SASHIMI = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "cod_sashimi"),
-                new CodSashimi(new FabricItemSettings().
-                        food(new FoodComponent.Builder().
-                                hunger(4).
-                                saturationModifier(6F).
-                                alwaysEdible().
-                                /**
-                                 * Every 20 ticks are 1 second
-                                 * */
-                                statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20*10), 0.01F).
-                                statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*10), 1).
-                                build()
-                        ).
-                        group(ItemGroup.FOOD)
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "cod_sashimi"), new CodSashimi(new FabricItemSettings())
         );
 
         PUFFER_FISH_SASHIMI = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "puffer_fish_sashimi"),
-                new PufferFishSashimi(new FabricItemSettings().
-                        food(new FoodComponent.Builder().
-                                hunger(2).
-                                saturationModifier(6F).
-                                alwaysEdible().
-                                statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20*10), 0.01F).
-                                statusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20*10), 0.1F).
-                                statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 20*60), 1).
-                                statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20*60), 1).
-                                build()
-                        ).
-                        group(ItemGroup.FOOD)
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "puffer_fish_sashimi"), new PufferFishSashimi(new FabricItemSettings())
         );
 
         SALMON_SASHIMI = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "salmon_sashimi"),
-                new SalmonSashimi(new FabricItemSettings().
-                        food(new FoodComponent.Builder().
-                                hunger(4).
-                                saturationModifier(6F).
-                                alwaysEdible().
-                                statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20*10), 0.01F).
-                                statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*10), 1).
-                                build()
-                        )
-                        .group(ItemGroup.FOOD)
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "salmon_sashimi"), new SalmonSashimi(new FabricItemSettings())
         );
 
         KEBAB = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "kebab"),
-                new Kebab(new FabricItemSettings().
-                        food(new FoodComponent.Builder().
-                                hunger(16).
-                                saturationModifier(6F).
-                                alwaysEdible().
-                                statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20*20), 1)
-                                .build()
-                        )
-                        .group(ItemGroup.FOOD)
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "kebab"), new Kebab(new FabricItemSettings())
         );
 
         SALAD = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "salad"),
-                new Salad(new FabricItemSettings().
-                            food(new FoodComponent.Builder().
-                                    hunger(20).
-                                    statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20*30), 1).
-                                    statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20*30), 1)
-                                    .build()
-                            )
-                        .group(ItemGroup.FOOD)
-                        )
+                Registry.ITEM, new Identifier(MOD_ID, "salad"), new Salad(new FabricItemSettings())
         );
 
         APPLE_JAM = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "apple_jam"),
-                new AppleJam(new FabricItemSettings().
-                            food(new FoodComponent.Builder()
-                                    .build()
-                            )
-                        .group(ItemGroup.FOOD)
-                        )
+                Registry.ITEM, new Identifier(MOD_ID, "apple_jam"), new AppleJam(new FabricItemSettings())
         );
 
         SWEET_BERRIES_JAM = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "sweet_berries_jam"),
-                new SweetBerriesJam(new FabricItemSettings().
-                            food(new FoodComponent.Builder()
-                                    .build()
-                            )
-                        .group(ItemGroup.FOOD)
-                        )
+                Registry.ITEM, new Identifier(MOD_ID, "sweet_berries_jam"), new SweetBerriesJam(new FabricItemSettings())
         );
 
         WATERMELON_JAM =  Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "watermelon_jam"),
-                new WatermelonJam(new FabricItemSettings().
-                        food(new FoodComponent.Builder()
-                                .build()
-                        )
-                        .group(ItemGroup.FOOD)
-                )
+                Registry.ITEM, new Identifier(MOD_ID, "watermelon_jam"), new WatermelonJam(new FabricItemSettings())
         );
 
         TOAST = Registry.register(
-                Registry.ITEM,
-                new Identifier(MOD_ID, "toast"),
-                new Toast(new FabricItemSettings().
-                            food(new FoodComponent.Builder().
-                                    hunger(2)
-                                    .build()
-                            )
-                        .group(ItemGroup.FOOD)
-                        )
+                Registry.ITEM, new Identifier(MOD_ID, "toast"), new Toast(new FabricItemSettings())
+        );
+
+        APPLE_JAM_TOAST = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "apple_jam_toast"), new AppleJamToast(new FabricItemSettings())
+        );
+
+        SWEET_BERRIES_JAM_TOAST = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "sweet_berries_jam_toast"), new SweetBerriesJamToast(new FabricItemSettings())
+        );
+
+        WATERMELON_JAM_TOAST = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "watermelon_jam_toast"), new WatermelonJamToast(new FabricItemSettings())
         );
     }
 }
