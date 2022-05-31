@@ -5,8 +5,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import xyz.jessyu.fabric.financial.Financial;
-import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierBlockScreen;
-import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
+import xyz.jessyu.fabric.financial.block.cashier.CashierBlockScreen;
+import xyz.jessyu.fabric.financial.block.cashier.CashierGuiDescription;
 
 @Environment(EnvType.CLIENT)
 public class FinancialClient implements ClientModInitializer {

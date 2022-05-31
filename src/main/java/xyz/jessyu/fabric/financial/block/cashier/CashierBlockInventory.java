@@ -1,4 +1,4 @@
-package xyz.jessyu.fabric.financial.block.cashier.inventory;
+package xyz.jessyu.fabric.financial.block.cashier;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "financial:cashier"
+    "financial:cashier",
+    "financial:atm"
   ]
 }

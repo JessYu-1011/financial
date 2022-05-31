@@ -15,8 +15,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import xyz.jessyu.fabric.financial.Financial;
-import xyz.jessyu.fabric.financial.block.cashier.inventory.CashierBlockInventory;
-import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
 
 public class CashierBlockEntity extends BlockEntity implements CashierBlockInventory, NamedScreenHandlerFactory {
 

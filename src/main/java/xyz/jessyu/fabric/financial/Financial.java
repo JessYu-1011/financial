@@ -2,6 +2,7 @@ package xyz.jessyu.fabric.financial;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
@@ -12,9 +13,10 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import xyz.jessyu.fabric.financial.block.ATM.ATM;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
-import xyz.jessyu.fabric.financial.block.cashier.libgui.CashierGuiDescription;
+import xyz.jessyu.fabric.financial.block.cashier.CashierGuiDescription;
 import xyz.jessyu.fabric.financial.item.BowlWithStick;
 import xyz.jessyu.fabric.financial.item.Card;
 import xyz.jessyu.fabric.financial.item.Plate;
@@ -38,6 +40,8 @@ public class Financial implements ModInitializer {
     public static final String MOD_ID = "financial";
     public static Block CASHIER_BLOCK;
     public static BlockItem CASHIER_ITEM;
+    public Block ATM_BLOCK;
+    public BlockItem ATM_ITEM;
     public static Card CARD;
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
@@ -54,28 +58,38 @@ public class Financial implements ModInitializer {
     @Override
     public void onInitialize() {
         CASHIER_BLOCK = Registry.register(
-                Registry.BLOCK,
-                new Identifier(MOD_ID, "cashier"),
-                new CashierBlock(Block.Settings.of(Material.STONE).requiresTool())
+                Registry.BLOCK, new Identifier(MOD_ID, "cashier"),
+                new CashierBlock(FabricBlockSettings.of(Material.METAL).requiresTool())
         );
 
-        CASHIER_ITEM = Registry.register(Registry.ITEM, new Identifier(MOD_ID, "cashier"),
-                new BlockItem(CASHIER_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+        CASHIER_ITEM = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "cashier"),
+                new BlockItem(CASHIER_BLOCK, new FabricItemSettings().group(ItemGroup.MISC))
+        );
+
+        ATM_BLOCK = Registry.register(
+                Registry.BLOCK, new Identifier(MOD_ID, "atm"),
+                new ATM(FabricBlockSettings.of(Material.METAL).requiresTool())
+        );
+
+        ATM_ITEM = Registry.register(
+                Registry.ITEM, new Identifier(MOD_ID, "atm"),
+                new BlockItem(ATM_BLOCK, new FabricItemSettings().group(ItemGroup.MISC))
+        );
 
         CARD = Registry.register(
                 Registry.ITEM, new Identifier(MOD_ID, "card"), new Card(new FabricItemSettings())
         );
 
         CASHIER_BLOCK_ENTITY = Registry.register(
-                Registry.BLOCK_ENTITY_TYPE,
-                new Identifier(MOD_ID, "cashier_block_entity"),
+                Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "cashier_block_entity"),
                 FabricBlockEntityTypeBuilder.create(CashierBlockEntity::new, CASHIER_BLOCK).build(null)
         );
 
         SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
-                new Identifier(MOD_ID, "screen_handler_type"),
-                (syncId, inventory) -> new CashierGuiDescription(
-                        syncId, inventory, ScreenHandlerContext.EMPTY)
+                new Identifier(MOD_ID, "screen_handler_type"), (syncId, inventory) -> new CashierGuiDescription(
+                        syncId, inventory, ScreenHandlerContext.EMPTY
+                )
         );
 
         KITCHEN_KNIFE = Registry.register(

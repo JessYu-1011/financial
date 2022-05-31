@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "financial:block/atm" }
+  }
+}
