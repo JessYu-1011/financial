@@ -5,6 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -15,11 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ATM extends BlockWithEntity {
-    private static Map<String, Integer> itemToMoney = new HashMap<String, Integer>();
+    public static Map<String, Integer> itemToMoney = new HashMap<String, Integer>();
+    public static Map<Item, Integer> itemToMoneyItems = new HashMap<Item, Integer>();
     private static String minecraftItemPrefix = "item.minecraft.";
     public ATM(Settings settings){
         super(settings.nonOpaque());
         setItemPrice();
+        setItems();
     }
 
     @Override
@@ -93,7 +97,7 @@ public class ATM extends BlockWithEntity {
     public static void putItemPrice(String itemName, int price){
         itemToMoney.put(minecraftItemPrefix + itemName, price);
     }
-    public static void setItemPrice(){
+    private static void setItemPrice(){
         putItemPrice( "rotten_flesh", 5);
         putItemPrice("bone", 10);
         putItemPrice( "gunpowder", 20);
@@ -138,6 +142,52 @@ public class ATM extends BlockWithEntity {
         putItemPrice("diamond", 500);
         putItemPrice("netherite_ingot", 1000);
     }
+    private static void setItems() {
+        itemToMoneyItems.put(Items.SWEET_BERRIES, 1);
+        itemToMoneyItems.put(Items.ROTTEN_FLESH, 5);
+        itemToMoneyItems.put(Items.BROWN_MUSHROOM, 5);
+        itemToMoneyItems.put(Items.EGG, 5);
+        itemToMoneyItems.put(Items.RED_MUSHROOM, 5);
+        itemToMoneyItems.put(Items.WHEAT, 10);
+        itemToMoneyItems.put(Items.CARROT, 10);
+        itemToMoneyItems.put(Items.POTATO, 10);
+        itemToMoneyItems.put(Items.BEETROOT, 10);
+        itemToMoneyItems.put(Items.MELON_SLICE, 10);
+        itemToMoneyItems.put(Items.BONE, 10);
+        itemToMoneyItems.put(Items.COD, 10);
+        itemToMoneyItems.put(Items.SALMON, 10);
+        itemToMoneyItems.put(Items.TROPICAL_FISH, 10);
+        itemToMoneyItems.put(Items.COAL, 10);
+        itemToMoneyItems.put(Items.CHICKEN, 10);
+        itemToMoneyItems.put(Items.RABBIT, 10);
+        itemToMoneyItems.put(Items.PORKCHOP, 10);
+        itemToMoneyItems.put(Items.BEEF, 20);
+        itemToMoneyItems.put(Items.MUTTON, 20);
+        itemToMoneyItems.put(Items.GUNPOWDER, 20);
+        itemToMoneyItems.put(Items.APPLE, 20);
+        itemToMoneyItems.put(Items.COOKIE, 20);
+        itemToMoneyItems.put(Items.SPIDER_EYE, 50);
+        itemToMoneyItems.put(Items.PUMPKIN_PIE, 50);
+        itemToMoneyItems.put(Items.IRON_INGOT, 50);
+        itemToMoneyItems.put(Items.COPPER_INGOT, 50);
+        itemToMoneyItems.put(Items.REDSTONE, 50);
+        itemToMoneyItems.put(Items.QUARTZ, 50);
+        itemToMoneyItems.put(Items.CAKE, 100);
+        itemToMoneyItems.put(Items.BLAZE_ROD, 100);
+        itemToMoneyItems.put(Items.ENDER_PEARL, 100);
+        itemToMoneyItems.put(Items.GOLD_INGOT, 100);
+        itemToMoneyItems.put(Items.PUFFERFISH, 100);
+        itemToMoneyItems.put(Items.LAPIS_LAZULI, 200);
+        itemToMoneyItems.put(Items.EMERALD, 200);
+        itemToMoneyItems.put(Items.COD_BUCKET, 200);
+        itemToMoneyItems.put(Items.SALMON_BUCKET, 200);
+        itemToMoneyItems.put(Items.TROPICAL_FISH_BUCKET, 200);
+        itemToMoneyItems.put(Items.PUFFERFISH_BUCKET, 500);
+        itemToMoneyItems.put(Items.DIAMOND, 500);
+        itemToMoneyItems.put(Items.NETHERITE_INGOT, 1000);
+        itemToMoneyItems.put(Items.GOLDEN_APPLE, 1000);
+        itemToMoneyItems.put(Items.ENCHANTED_GOLDEN_APPLE, 5000);
+    }
 
     public static Map getItemPrice(){
         return itemToMoney;
@@ -150,7 +200,4 @@ public class ATM extends BlockWithEntity {
             return false;
         }
     }
-
-
-
 }
