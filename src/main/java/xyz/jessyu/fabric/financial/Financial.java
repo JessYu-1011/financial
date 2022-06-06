@@ -14,6 +14,8 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import xyz.jessyu.fabric.financial.block.ATM.ATM;
+import xyz.jessyu.fabric.financial.block.ATM.ATMBlockEntity;
+import xyz.jessyu.fabric.financial.block.ATM.ATMGuiDescription;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlock;
 import xyz.jessyu.fabric.financial.block.cashier.CashierBlockEntity;
 import xyz.jessyu.fabric.financial.block.cashier.CashierGuiDescription;
@@ -44,7 +46,9 @@ public class Financial implements ModInitializer {
     public BlockItem ATM_ITEM;
     public static Card CARD;
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
-    public static ScreenHandlerType<CashierGuiDescription> SCREEN_HANDLER_TYPE;
+    public static BlockEntityType<ATMBlockEntity> ATM_BLOCK_ENTITY;
+    public static ScreenHandlerType<CashierGuiDescription> CASHIER_SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<ATMGuiDescription> ATM_SCREEN_HANDLER_TYPE;
     public static ToolItem KITCHEN_KNIFE;
     public static Sashimi COD_SASHIMI, PUFFER_FISH_SASHIMI, SALMON_SASHIMI;
     public static Kebab KEBAB;
@@ -86,10 +90,21 @@ public class Financial implements ModInitializer {
                 FabricBlockEntityTypeBuilder.create(CashierBlockEntity::new, CASHIER_BLOCK).build(null)
         );
 
-        SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
-                new Identifier(MOD_ID, "screen_handler_type"), (syncId, inventory) -> new CashierGuiDescription(
+        ATM_BLOCK_ENTITY = Registry.register(
+                Registry.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "atm_block_entity"),
+                FabricBlockEntityTypeBuilder.create(ATMBlockEntity::new, ATM_BLOCK).build(null)
+        );
+
+        CASHIER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+                new Identifier(MOD_ID, "cashier_screen_handler_type"), (syncId, inventory) -> new CashierGuiDescription(
                         syncId, inventory, ScreenHandlerContext.EMPTY
                 )
+        );
+
+        ATM_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+                new Identifier(MOD_ID, "atm_screen_handler_type"), ((syncId, inventory) -> new ATMGuiDescription(
+                        syncId, inventory, ScreenHandlerContext.EMPTY
+                ))
         );
 
         KITCHEN_KNIFE = Registry.register(

@@ -6,6 +6,7 @@ import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import xyz.jessyu.fabric.financial.Financial;
+import xyz.jessyu.fabric.financial.item.Card;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,7 +15,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
     private static int INVENTORY_SIZE = 50;
 
     public CashierGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
-        super(Financial.SCREEN_HANDLER_TYPE,
+        super(Financial.CASHIER_SCREEN_HANDLER_TYPE,
                 syncId,
                 playerInventory,
                 getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context)
@@ -34,7 +35,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * The slot for putting card
          * */
         WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
-        cardSlot.setFilter(stack -> stack.getItem() == Financial.CARD);
+        cardSlot.setFilter(stack -> stack.getItem() instanceof Card);
         root.add(cardSlot, 50, 40);
 
 
