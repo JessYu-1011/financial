@@ -36,15 +36,15 @@ public class ATMGuiDescription extends SyncedGuiDescription {
          * */
         WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
         cardSlot.setFilter(stack -> stack.getItem() instanceof Card );
-        root.add(cardSlot, 3*18, 2*18);
+        root.add(cardSlot, 2*18, 2*18);
 
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 1);
         itemSlot.setFilter(stack -> ATM.checkExist(stack.getItem().getTranslationKey()));
-        root.add(itemSlot, 6*18, 2*18);
+        root.add(itemSlot, 5*18, 2*18);
 
         WButton submit = new WButton();
         submit.setLabel(new LiteralText("Withdrawal"));
-        root.add(submit, 8*18, 2*18);
+        root.add(submit, 46, 4*18, 50, 20);
 
         /**
          * Display the price of items
