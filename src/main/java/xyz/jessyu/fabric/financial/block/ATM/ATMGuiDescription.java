@@ -18,11 +18,12 @@ import java.util.Map;
 
 public class ATMGuiDescription extends SyncedGuiDescription {
     private static int INVENTORY_SIZE = 50;
+    private final int CARD_INDEX = 40;
+    private final int ITEM_INDEX = 41;
+
     public ATMGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
         super(
-                Financial.ATM_SCREEN_HANDLER_TYPE,
-                syncId,
-                playerInventory,
+                Financial.ATM_SCREEN_HANDLER_TYPE, syncId, playerInventory,
                 getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context)
         );
 
@@ -34,17 +35,33 @@ public class ATMGuiDescription extends SyncedGuiDescription {
          * cardSlot is for card
          * itemSlot is for sale item
          * */
-        WItemSlot cardSlot = WItemSlot.of(blockInventory, 0);
+        WItemSlot cardSlot = WItemSlot.of(blockInventory, CARD_INDEX);
         cardSlot.setFilter(stack -> stack.getItem() instanceof Card );
         root.add(cardSlot, 2*18, 2*18);
 
-        WItemSlot itemSlot = WItemSlot.of(blockInventory, 1);
+        WItemSlot itemSlot = WItemSlot.of(blockInventory, ITEM_INDEX);
         itemSlot.setFilter(stack -> ATM.checkExist(stack.getItem().getTranslationKey()));
         root.add(itemSlot, 5*18, 2*18);
 
+        /**
+         * If the player click the button, then go to check the price of item then return the balance into player's card
+         * */
+
+
         WButton submit = new WButton();
         submit.setLabel(new LiteralText("Withdrawal"));
-        root.add(submit, 46, 4*18, 50, 20);
+        submit.setOnClick(() -> {
+            ItemStack item = blockInventory.getStack(ITEM_INDEX);
+            ItemStack card = blockInventory.getStack(CARD_INDEX);
+            if(item != ItemStack.EMPTY && card != ItemStack.EMPTY){
+                int price = ATM.getItemPrice(item);
+                Card.modifyBalance(blockInventory.getStack(CARD_INDEX), price);
+                blockInventory.removeStack(ITEM_INDEX, item.getCount());
+                blockInventory.setStack(ITEM_INDEX, ItemStack.EMPTY);
+            }
+        });
+        root.add(submit, 46, 4*18, 55, 20);
+
 
         /**
          * Display the price of items
@@ -73,6 +90,4 @@ public class ATMGuiDescription extends SyncedGuiDescription {
         root.add(this.createPlayerInventoryPanel(), 2, 6*18);
         root.validate(this);
     }
-
-
 }

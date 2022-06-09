@@ -70,9 +70,9 @@ public interface CashierBlockInventory extends Inventory {
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
-        ItemStack result = null;
+        ItemStack result = ItemStack.EMPTY;
         /**
-         * If we want take out the itemstack, the balance will decrease
+         * If we want to take out the itemstack, the balance will decrease
          * */
         if(slot >= 2 && slot <= 31){
             int balance = Card.getBalance(getStack(0));

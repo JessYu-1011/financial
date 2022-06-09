@@ -6,6 +6,7 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -189,8 +190,13 @@ public class ATM extends BlockWithEntity {
         itemToMoneyItems.put(Items.ENCHANTED_GOLDEN_APPLE, 5000);
     }
 
-    public static Map getItemPrice(){
-        return itemToMoney;
+    public static int getItemPrice(ItemStack stack){
+        if(stack != null){
+            int count = stack.getCount();
+            int price = itemToMoney.get(stack.getItem().getTranslationKey());
+            return price*count;
+        }
+        return 0;
     }
 
     public static boolean checkExist(String itemId){

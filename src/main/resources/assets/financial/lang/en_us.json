@@ -1,5 +1,6 @@
 {
   "block.financial.cashier": "Cashier",
+  "block.financial.atm": "ATM",
   "item.financial.card": "Debit Card",
   "item.financial.kitchen_knife": "Kitchen Knife",
   "item.financial.cod_sashimi": "Cod Sashimi",
@@ -14,5 +15,6 @@
   "item.financial.apple_jam_toast": "Apple Jam Toast",
   "item.financial.sweet_berries_jam_toast": "Sweet Berries Jam Toast",
   "item.financial.watermelon_jam_toast": "Watermelon Jam Toast",
-  "item.financial.plate": "Plate"
+  "item.financial.plate": "Plate",
+  "item.financial.bowl_with_stick": "Bowl With Stick"
 }

@@ -1,5 +1,6 @@
 {
   "block.financial.cashier": "收銀機",
+  "block.financial.atm": "ATM",
   "item.financial.card": "金融卡",
   "item.financial.kitchen_knife": "菜刀",
   "item.financial.cod_sashimi": "鱈魚生魚片",
@@ -14,7 +15,7 @@
   "item.financial.apple_jam_toast": "蘋果醬土司",
   "item.financial.sweet_berries_jam_toast": "甜莓醬土司",
   "item.financial.watermelon_jam_toast": "西瓜醬土司",
-  "item.financial.plate": "盤子"
-
+  "item.financial.plate": "盤子",
+  "item.financial.bowl_with_stick": "研磨碗"
 }
 

@@ -31,7 +31,7 @@ public class Card extends Item {
                 player.getStackInHand(hand).setNbt(nbt.copy());
             } else {
                 // this part is for testing purpose
-                modifyBalance(player.getStackInHand(hand), -10);
+                modifyBalance(player.getStackInHand(hand), 10);
             }
             return super.use(world, player, hand);
     }
@@ -57,7 +57,7 @@ public class Card extends Item {
     public static void modifyBalance(ItemStack stack, int offsetBalance){
         if(stack.hasNbt()){
             int currentBalance = stack.getNbt().getInt(balance);
-            currentBalance -= offsetBalance;
+            currentBalance += offsetBalance;
             NbtCompound nbt = new NbtCompound();
             nbt.putInt(balance, currentBalance);
             stack.setNbt(nbt);
