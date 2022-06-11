@@ -1,6 +1,8 @@
 package xyz.jessyu.fabric.financial.block.ATM;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
+import io.github.cottonmc.cotton.gui.networking.NetworkSide;
+import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
 import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Axis;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
@@ -11,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import xyz.jessyu.fabric.financial.Financial;
 import xyz.jessyu.fabric.financial.item.Card;
 
@@ -20,6 +23,7 @@ public class ATMGuiDescription extends SyncedGuiDescription {
     private static int INVENTORY_SIZE = 50;
     private final int CARD_INDEX = 40;
     private final int ITEM_INDEX = 41;
+    private static final Identifier ONCLICK_MESSAGE = new Identifier(Financial.MOD_ID, "onclicked");
 
     public ATMGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
         super(
@@ -44,13 +48,11 @@ public class ATMGuiDescription extends SyncedGuiDescription {
         root.add(itemSlot, 5*18, 2*18);
 
         /**
-         * If the player click the button, then go to check the price of item then return the balance into player's card
+         * If the player click the button, then go to check the price of item then return the balance into player's card.
+         * We use the screennetworking to send the packet, bcuz the button just work at the client side.
          * */
 
-
-        WButton submit = new WButton();
-        submit.setLabel(new LiteralText("Withdrawal"));
-        submit.setOnClick(() -> {
+        ScreenNetworking.of(this, NetworkSide.SERVER).receive(ONCLICK_MESSAGE, buf -> {
             ItemStack item = blockInventory.getStack(ITEM_INDEX);
             ItemStack card = blockInventory.getStack(CARD_INDEX);
             if(item != ItemStack.EMPTY && card != ItemStack.EMPTY){
@@ -59,6 +61,14 @@ public class ATMGuiDescription extends SyncedGuiDescription {
                 blockInventory.removeStack(ITEM_INDEX, item.getCount());
                 blockInventory.setStack(ITEM_INDEX, ItemStack.EMPTY);
             }
+        });
+
+        WButton submit = new WButton();
+        submit.setLabel(new LiteralText("Withdrawal"));
+        submit.setOnClick(() -> {
+            ScreenNetworking.of(this, NetworkSide.CLIENT).send(ONCLICK_MESSAGE, buf -> {
+                buf.writeInt(1);
+            });
         });
         root.add(submit, 46, 4*18, 55, 20);
 
