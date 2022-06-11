@@ -20,9 +20,9 @@ import xyz.jessyu.fabric.financial.item.Card;
 import java.util.Map;
 
 public class ATMGuiDescription extends SyncedGuiDescription {
-    private static int INVENTORY_SIZE = 50;
-    private final int CARD_INDEX = 40;
-    private final int ITEM_INDEX = 41;
+    private static int INVENTORY_SIZE = 2;
+    private final int CARD_INDEX = 0;
+    private final int ITEM_INDEX = 1;
     private static final Identifier ONCLICK_MESSAGE = new Identifier(Financial.MOD_ID, "onclicked");
 
     public ATMGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
