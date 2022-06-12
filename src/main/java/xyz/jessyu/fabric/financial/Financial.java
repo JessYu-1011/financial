@@ -37,14 +37,16 @@ import xyz.jessyu.fabric.financial.item.foods.sashimis.Sashimi;
 import xyz.jessyu.fabric.financial.item.tools.KitchenKnife;
 import xyz.jessyu.fabric.financial.item.tools.KitchenKnifeMaterial;
 
+/**
+ * @author Jess
+ * @version 0.1 Dev version
+ */
 
 public class Financial implements ModInitializer {
     public static final String MOD_ID = "financial";
-    public static Block CASHIER_BLOCK;
-    public static BlockItem CASHIER_ITEM;
-    public Block ATM_BLOCK;
-    public BlockItem ATM_ITEM;
-    public static Card CARD;
+    public static Block CASHIER_BLOCK, ATM_BLOCK;
+    public static BlockItem CASHIER_ITEM, ATM_ITEM;
+    public static Item CARD;
     public static BlockEntityType<CashierBlockEntity> CASHIER_BLOCK_ENTITY;
     public static BlockEntityType<ATMBlockEntity> ATM_BLOCK_ENTITY;
     public static ScreenHandlerType<CashierGuiDescription> CASHIER_SCREEN_HANDLER_TYPE;

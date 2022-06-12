@@ -36,8 +36,8 @@ public class ATMGuiDescription extends SyncedGuiDescription {
         root.setSize(15*18, 10*18);
         root.setInsets(Insets.ROOT_PANEL);
         /**
-         * cardSlot is for card
-         * itemSlot is for sale item
+         * @param cardSlot is the slot to put the card
+         * @param itemSlot is the slot to put the item for selling
          * */
         WItemSlot cardSlot = WItemSlot.of(blockInventory, CARD_INDEX);
         cardSlot.setFilter(stack -> stack.getItem() instanceof Card );
@@ -49,7 +49,7 @@ public class ATMGuiDescription extends SyncedGuiDescription {
 
         /**
          * If the player click the button, then go to check the price of item then return the balance into player's card.
-         * We use the screennetworking to send the packet, bcuz the button just work at the client side.
+         * We use the {@link ScreenNetworking} to send the packet, bcuz the button just work at the client side.
          * */
 
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(ONCLICK_MESSAGE, buf -> {

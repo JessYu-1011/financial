@@ -40,7 +40,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
 
 
         /**
-         * This panel if for goods storage
+         * This panel is for goods storage
          */
         WPlainPanel panel = new WPlainPanel();
         panel.setSize(4*18, 12*18);
