@@ -3,16 +3,14 @@ package xyz.jessyu.fabric.financial.block.cashier;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class CashierBlock extends BlockWithEntity {
-    private String OWNER = "financial.cashier_owner";
     public CashierBlock(Settings settings){
         super(settings.of(Material.METAL).nonOpaque());
     }
@@ -30,6 +28,14 @@ public class CashierBlock extends BlockWithEntity {
      * */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        CashierBlockEntity blockEntity = (CashierBlockEntity) world.getBlockEntity(pos);
+        /**
+         * Set the owner of the block
+         * */
+        if(blockEntity.owner == null){
+            blockEntity.owner = player.getUuid();
+
+        }
         player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         return ActionResult.SUCCESS;
     }
@@ -41,6 +47,5 @@ public class CashierBlock extends BlockWithEntity {
     public BlockRenderType getRenderType(BlockState state){
         return BlockRenderType.MODEL;
     }
-
 
 }
