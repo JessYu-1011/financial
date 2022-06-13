@@ -6,6 +6,7 @@ import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import xyz.jessyu.fabric.financial.Financial;
+import xyz.jessyu.fabric.financial.block.ATM.ATM;
 import xyz.jessyu.fabric.financial.item.Card;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,7 +29,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * */
         WPlainPanel root = new WPlainPanel();
         setRootPanel(root);
-        root.setSize(20*18, 12*18);
+        root.setSize(14*18, 11*18);
         root.setInsets(Insets.ROOT_PANEL);
 
         /**
@@ -70,7 +71,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
             }
             slotX += 18;
         }
-        root.add(rightPanel, 14*18, 0);
+        root.add(rightPanel, 10*18, 4);
 
 
         /**
@@ -79,7 +80,7 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * */
         AtomicInteger outerIndex = new AtomicInteger(2);
         WItemSlot putSlot = WItemSlot.of(blockInventory, 1);
-        putSlot.setFilter(stack -> stack.getItem() != Financial.CARD);
+        putSlot.setFilter(stack -> ATM.checkExist(stack.getItem().getTranslationKey()));
         putSlot.addChangeListener(
                 (slot, inventory, index, stack) -> {
                     if(!stack.isEmpty()){

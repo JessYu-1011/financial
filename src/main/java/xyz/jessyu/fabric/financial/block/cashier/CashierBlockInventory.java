@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.collection.DefaultedList;
+import xyz.jessyu.fabric.financial.block.ATM.ATM;
 import xyz.jessyu.fabric.financial.item.Card;
 
 public interface CashierBlockInventory extends Inventory {
@@ -72,13 +73,15 @@ public interface CashierBlockInventory extends Inventory {
     default ItemStack removeStack(int slot, int count) {
         ItemStack result = ItemStack.EMPTY;
         /**
-         * If we want to take out the itemstack, the balance will decrease
+         * If we want to take out the {@link ItemStack}, the balance will decrease
+         * This will check whether the
          * */
         if(slot >= 2 && slot <= 31){
             int balance = Card.getBalance(getStack(0));
+            int price = ATM.getItemPrice(getStack(slot));
             if(balance > 0 ){
                 result = Inventories.splitStack(getItems(), slot, count);
-                Card.modifyBalance(getStack(0), 2);
+                Card.modifyBalance(getStack(0), price);
                 if (!result.isEmpty()) {
                     markDirty();
                 }
@@ -89,7 +92,7 @@ public interface CashierBlockInventory extends Inventory {
                 MinecraftClient mc = MinecraftClient.getInstance();
                 mc.inGameHud.addChatMessage(
                         MessageType.CHAT,
-                        new LiteralText("The balance is ineffiecient"),
+                        new LiteralText("The balance is insufficient"),
                         mc.player.getUuid());
                 return result;
             }

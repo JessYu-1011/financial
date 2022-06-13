@@ -34,6 +34,7 @@ public class ATM extends BlockWithEntity {
 
     /**
      * This method will be called when open the block.
+     * The first player open this Block will be the owner of this block
      * */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit){

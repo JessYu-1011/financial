@@ -16,8 +16,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import xyz.jessyu.fabric.financial.Financial;
 
-public class CashierBlockEntity extends BlockEntity implements CashierBlockInventory, NamedScreenHandlerFactory {
+import java.util.UUID;
 
+public class CashierBlockEntity extends BlockEntity implements CashierBlockInventory, NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(50, ItemStack.EMPTY);
 
     public CashierBlockEntity(BlockPos pos, BlockState state){
