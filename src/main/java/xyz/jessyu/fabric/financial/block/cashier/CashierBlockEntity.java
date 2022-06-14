@@ -20,6 +20,8 @@ import java.util.UUID;
 
 public class CashierBlockEntity extends BlockEntity implements CashierBlockInventory, NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(50, ItemStack.EMPTY);
+    public static String OWNER = "financial.cashier_owner";
+    public UUID owner = null;
 
     public CashierBlockEntity(BlockPos pos, BlockState state){
         super(Financial.CASHIER_BLOCK_ENTITY, pos, state);
@@ -37,12 +39,14 @@ public class CashierBlockEntity extends BlockEntity implements CashierBlockInven
     @Override
     public void readNbt(NbtCompound nbt){
         super.readNbt(nbt);
+        nbt.getUuid(OWNER);
         Inventories.readNbt(nbt, this.items);
     }
 
     @Override
     public void writeNbt(NbtCompound nbt){
         super.writeNbt(nbt);
+        nbt.putUuid(OWNER, owner);
         Inventories.writeNbt(nbt, this.items);
     }
 

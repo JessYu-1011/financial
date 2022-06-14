@@ -30,6 +30,10 @@ public class CashierBlock extends BlockWithEntity {
      * */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        CashierBlockEntity blockEntity = (CashierBlockEntity) world.getBlockEntity(pos);
+        if(blockEntity.owner == null) {
+            blockEntity.owner = player.getUuid();
+        }
         player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         return ActionResult.SUCCESS;
     }
