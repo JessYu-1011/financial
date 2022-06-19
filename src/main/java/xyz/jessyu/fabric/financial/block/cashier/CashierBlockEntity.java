@@ -60,4 +60,5 @@ public class CashierBlockEntity extends BlockEntity implements CashierBlockInven
     public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
         return new CashierGuiDescription(syncId, inventory, ScreenHandlerContext.create(world, pos));
     }
+
 }

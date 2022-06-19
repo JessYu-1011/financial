@@ -5,16 +5,16 @@ import io.github.cottonmc.cotton.gui.widget.*;
 import io.github.cottonmc.cotton.gui.widget.data.Insets;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.util.math.BlockPos;
 import xyz.jessyu.fabric.financial.Financial;
 import xyz.jessyu.fabric.financial.block.ATM.ATM;
 import xyz.jessyu.fabric.financial.item.Card;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 public class CashierGuiDescription extends SyncedGuiDescription {
     private static int INVENTORY_SIZE = 50;
-
+    private BlockPos pos;
     public CashierGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context){
         super(Financial.CASHIER_SCREEN_HANDLER_TYPE,
                 syncId,
@@ -29,7 +29,12 @@ public class CashierGuiDescription extends SyncedGuiDescription {
          * */
         WPlainPanel root = new WPlainPanel();
         setRootPanel(root);
-        root.setSize(14*18, 11*18);
+        CashierBlockEntity blockEntity = (CashierBlockEntity) world.getBlockEntity(playerInventory.player.getLandingPos());
+        if(blockEntity != null && playerInventory.player.getUuid().equals(blockEntity.owner)){
+            root.setSize(25*18, 11*18);
+        } else {
+            root.setSize(14*18, 11*18);
+        }
         root.setInsets(Insets.ROOT_PANEL);
 
         /**
